@@ -75,4 +75,4 @@ To run the automated tests:
 ```
 
 ---
-*Developed with ❤️ by the Antigravity AI Assistant.*
+*Developed with 💜 during Rocketseat's NLW with the support of Antigravity.*
