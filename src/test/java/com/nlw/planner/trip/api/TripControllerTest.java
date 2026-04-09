@@ -1,14 +1,7 @@
 package com.nlw.planner.trip.api;
 
 import com.nlw.planner.trip.domain.TripService;
-import com.nlw.planner.participant.domain.Participant;
-import com.nlw.planner.link.domain.Link;
 import com.nlw.planner.trip.domain.Trip;
-import com.nlw.planner.activity.domain.Activity;
-
-import com.nlw.planner.activity.api.ActivityResponse;
-import com.nlw.planner.link.api.LinkDTO;
-import com.nlw.planner.participant.api.ParticipantCreateResponse;
 import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.activity.domain.ActivityService;
 import com.nlw.planner.link.domain.LinkService;

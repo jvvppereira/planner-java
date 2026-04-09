@@ -2,13 +2,10 @@ package com.nlw.planner.trip.api;
 
 import com.nlw.planner.participant.api.ParticipantCreateResponse;
 import com.nlw.planner.participant.api.ParticipantDTO;
-import com.nlw.planner.trip.domain.TripService;
-import com.nlw.planner.participant.domain.Participant;
-import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.participant.api.ParticipantRequestPayload;
-import com.nlw.planner.link.domain.Link;
+import com.nlw.planner.trip.domain.TripService;
+import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.trip.domain.Trip;
-import com.nlw.planner.activity.domain.Activity;
 
 import com.nlw.planner.activity.api.ActivityDTO;
 import com.nlw.planner.activity.api.ActivityRequestPayload;
@@ -17,7 +14,6 @@ import com.nlw.planner.activity.domain.ActivityService;
 import com.nlw.planner.link.api.LinkDTO;
 import com.nlw.planner.link.api.LinkRequestPayload;
 import com.nlw.planner.link.domain.LinkService;
-import com.nlw.planner.participant.api.*; import com.nlw.planner.participant.domain.*; import com.nlw.planner.participant.infra.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
