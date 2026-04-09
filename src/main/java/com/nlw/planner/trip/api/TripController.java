@@ -1,7 +1,7 @@
 package com.nlw.planner.trip.api;
 
 import com.nlw.planner.participant.api.ParticipantCreateResponse;
-import com.nlw.planner.participant.api.ParticipantData;
+import com.nlw.planner.participant.api.ParticipantDTO;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.participant.domain.Participant;
 import com.nlw.planner.participant.domain.ParticipantService;
@@ -10,11 +10,11 @@ import com.nlw.planner.link.domain.Link;
 import com.nlw.planner.trip.domain.Trip;
 import com.nlw.planner.activity.domain.Activity;
 
-import com.nlw.planner.activity.api.ActivityData;
+import com.nlw.planner.activity.api.ActivityDTO;
 import com.nlw.planner.activity.api.ActivityRequestPayload;
 import com.nlw.planner.activity.api.ActivityResponse;
 import com.nlw.planner.activity.domain.ActivityService;
-import com.nlw.planner.link.api.LinkData;
+import com.nlw.planner.link.api.LinkDTO;
 import com.nlw.planner.link.api.LinkRequestPayload;
 import com.nlw.planner.link.domain.LinkService;
 import com.nlw.planner.participant.api.*; import com.nlw.planner.participant.domain.*; import com.nlw.planner.participant.infra.*;
@@ -116,8 +116,8 @@ public class TripController {
     }
 
     @GetMapping("/{id}/participants")
-    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
-        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromTrip(id);
+    public ResponseEntity<List<ParticipantDTO>> getAllParticipants(@PathVariable UUID id) {
+        List<ParticipantDTO> participantList = this.participantService.getAllParticipantsFromTrip(id);
         return ResponseEntity.ok(participantList);
     }
 
@@ -138,19 +138,19 @@ public class TripController {
 
 
     @GetMapping("/{id}/activities")
-    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id) {
-        List<ActivityData> activitiesList = this.activityService.getAllActivitiesFromTrip(id);
+    public ResponseEntity<List<ActivityDTO>> getAllActivities(@PathVariable UUID id) {
+        List<ActivityDTO> activitiesList = this.activityService.getAllActivitiesFromTrip(id);
         return ResponseEntity.ok(activitiesList);
     }
 
     @PostMapping("/{id}/links")
-    public ResponseEntity<LinkData> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+    public ResponseEntity<LinkDTO> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
             Trip rawTrip = trip.get();
 
-            LinkData activityResponse = this.linkService.registerLink(payload, rawTrip);
+            LinkDTO activityResponse = this.linkService.registerLink(payload, rawTrip);
 
             return ResponseEntity.ok(activityResponse);
         }
@@ -158,8 +158,8 @@ public class TripController {
     }
 
     @GetMapping("/{id}/links")
-    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
-        List<LinkData> linksList = this.linkService.getAllLinksFromTrip(id);
+    public ResponseEntity<List<LinkDTO>> getAllLinks(@PathVariable UUID id) {
+        List<LinkDTO> linksList = this.linkService.getAllLinksFromTrip(id);
         return ResponseEntity.ok(linksList);
     }
 

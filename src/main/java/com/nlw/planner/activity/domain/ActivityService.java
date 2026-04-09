@@ -1,6 +1,6 @@
 package com.nlw.planner.activity.domain;
 
-import com.nlw.planner.activity.api.ActivityData;
+import com.nlw.planner.activity.api.ActivityDTO;
 import com.nlw.planner.activity.api.ActivityResponse;
 import com.nlw.planner.activity.infra.ActivityRepository;
 import com.nlw.planner.activity.api.ActivityRequestPayload;
@@ -26,7 +26,7 @@ public class ActivityService {
         return new ActivityResponse(newActivity.getId());
     }
 
-    public List<ActivityData> getAllActivitiesFromTrip(UUID tripId) {
-        return this.repository.findByTripId(tripId).stream().map(activity -> new ActivityData(activity.getId(), activity.getTitle(), activity.getOccursAt())).toList();
+    public List<ActivityDTO> getAllActivitiesFromTrip(UUID tripId) {
+        return this.repository.findByTripId(tripId).stream().map(activity -> new ActivityDTO(activity.getId(), activity.getTitle(), activity.getOccursAt())).toList();
     }
 }

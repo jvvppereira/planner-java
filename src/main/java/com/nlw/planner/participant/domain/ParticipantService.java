@@ -2,7 +2,7 @@ package com.nlw.planner.participant.domain;
 
 import com.nlw.planner.participant.api.ParticipantCreateResponse;
 import com.nlw.planner.participant.infra.ParticipantRepository;
-import com.nlw.planner.participant.api.ParticipantData;
+import com.nlw.planner.participant.api.ParticipantDTO;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +40,10 @@ public class ParticipantService {
 
     }
 
-    public List<ParticipantData> getAllParticipantsFromTrip(UUID id) {
+    public List<ParticipantDTO> getAllParticipantsFromTrip(UUID id) {
         return this.repository.findByTripId(id).stream().map(
                 participant ->
-                        new ParticipantData(
+                        new ParticipantDTO(
                                 participant.getId(),
                                 participant.getName(),
                                 participant.getEmail(),

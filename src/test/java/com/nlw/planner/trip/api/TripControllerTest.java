@@ -7,7 +7,7 @@ import com.nlw.planner.trip.domain.Trip;
 import com.nlw.planner.activity.domain.Activity;
 
 import com.nlw.planner.activity.api.ActivityResponse;
-import com.nlw.planner.link.api.LinkData;
+import com.nlw.planner.link.api.LinkDTO;
 import com.nlw.planner.participant.api.ParticipantCreateResponse;
 import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.activity.domain.ActivityService;

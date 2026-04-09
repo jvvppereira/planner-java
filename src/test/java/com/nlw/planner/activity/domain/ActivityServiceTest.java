@@ -1,6 +1,6 @@
 package com.nlw.planner.activity.domain;
 
-import com.nlw.planner.activity.api.ActivityData;
+import com.nlw.planner.activity.api.ActivityDTO;
 import com.nlw.planner.activity.api.ActivityResponse;
 import com.nlw.planner.activity.infra.ActivityRepository;
 import com.nlw.planner.activity.api.ActivityRequestPayload;
@@ -48,7 +48,7 @@ class ActivityServiceTest {
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(activity));
 
-        List<ActivityData> result = activityService.getAllActivitiesFromTrip(tripId);
+        List<ActivityDTO> result = activityService.getAllActivitiesFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());

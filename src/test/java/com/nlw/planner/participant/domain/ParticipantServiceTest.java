@@ -2,7 +2,7 @@ package com.nlw.planner.participant.domain;
 
 import com.nlw.planner.participant.api.ParticipantCreateResponse;
 import com.nlw.planner.participant.infra.ParticipantRepository;
-import com.nlw.planner.participant.api.ParticipantData;
+import com.nlw.planner.participant.api.ParticipantDTO;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ class ParticipantServiceTest {
         UUID tripId = UUID.randomUUID();
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(new Participant("test@test.com", new Trip())));
 
-        List<ParticipantData> result = participantService.getAllParticipantsFromTrip(tripId);
+        List<ParticipantDTO> result = participantService.getAllParticipantsFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());

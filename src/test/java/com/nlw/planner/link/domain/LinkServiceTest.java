@@ -1,7 +1,7 @@
 package com.nlw.planner.link.domain;
 
 import com.nlw.planner.link.infra.LinkRepository;
-import com.nlw.planner.link.api.LinkData;
+import com.nlw.planner.link.api.LinkDTO;
 import com.nlw.planner.link.api.LinkRequestPayload;
 
 import com.nlw.planner.trip.domain.Trip;
@@ -33,7 +33,7 @@ class LinkServiceTest {
         Trip trip = new Trip();
         LinkRequestPayload payload = new LinkRequestPayload("Title", "http://url.com");
 
-        LinkData response = linkService.registerLink(payload, trip);
+        LinkDTO response = linkService.registerLink(payload, trip);
 
         assertNotNull(response);
         assertEquals("Title", response.title());
@@ -49,7 +49,7 @@ class LinkServiceTest {
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(link));
 
-        List<LinkData> result = linkService.getAllLinksFromTrip(tripId);
+        List<LinkDTO> result = linkService.getAllLinksFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
