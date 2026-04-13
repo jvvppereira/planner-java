@@ -33,7 +33,7 @@ class ParticipantControllerTest {
         participant.setId(id);
         participant.setIsConfirmed(false);
 
-        ParticipantRequestPayload payload = new ParticipantRequestPayload("New Name", "test@test.com");
+        ConfirmParticipantRequest payload = new ConfirmParticipantRequest("New Name", "test@test.com");
 
         when(repository.findById(id)).thenReturn(Optional.of(participant));
         when(repository.save(any(Participant.class))).thenReturn(participant);
@@ -48,7 +48,7 @@ class ParticipantControllerTest {
     @Test
     void testConfirmParticipantNotFound() {
         UUID id = UUID.randomUUID();
-        ParticipantRequestPayload payload = new ParticipantRequestPayload("New Name", "test@test.com");
+        ConfirmParticipantRequest payload = new ConfirmParticipantRequest("New Name", "test@test.com");
 
         when(repository.findById(id)).thenReturn(Optional.empty());
 

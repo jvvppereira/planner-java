@@ -1,7 +1,7 @@
 package com.nlw.planner.trip.domain;
 
 import com.nlw.planner.trip.infra.TripRepository;
-import com.nlw.planner.trip.api.TripRequestPayload;
+import com.nlw.planner.trip.api.CreateTripRequest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ class TripServiceTest {
 
     @Test
     void testCreateTrip() {
-        TripRequestPayload payload = new TripRequestPayload(
+        CreateTripRequest payload = new CreateTripRequest(
                 "Florianópolis",
                 "2026-04-10T10:00:00",
                 "2026-04-20T10:00:00",

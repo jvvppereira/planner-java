@@ -1,8 +1,8 @@
 package com.nlw.planner.participant.domain;
 
-import com.nlw.planner.participant.api.ParticipantCreateResponse;
+import com.nlw.planner.participant.api.ParticipantSummaryResponse;
 import com.nlw.planner.participant.infra.ParticipantRepository;
-import com.nlw.planner.participant.api.ParticipantDTO;
+import com.nlw.planner.participant.api.ParticipantResponse;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ public class ParticipantService {
         System.out.println(participants.getFirst().getId());
     }
 
-    public ParticipantCreateResponse registerParticipantToTrip(String email, Trip trip) {
+    public ParticipantSummaryResponse registerParticipantToTrip(String email, Trip trip) {
         Participant participant = new Participant(email, trip);
         this.repository.save(participant);
 
-        return new ParticipantCreateResponse(participant.getId());
+        return new ParticipantSummaryResponse(participant.getId());
     }
 
     public void triggerConfirmationEmailToParticipants(UUID tripId) {
@@ -40,10 +40,10 @@ public class ParticipantService {
 
     }
 
-    public List<ParticipantDTO> getAllParticipantsFromTrip(UUID id) {
+    public List<ParticipantResponse> getAllParticipantsFromTrip(UUID id) {
         return this.repository.findByTripId(id).stream().map(
                 participant ->
-                        new ParticipantDTO(
+                        new ParticipantResponse(
                                 participant.getId(),
                                 participant.getName(),
                                 participant.getEmail(),

@@ -1,6 +1,6 @@
 package com.nlw.planner.trip.domain;
 
-import com.nlw.planner.trip.api.TripRequestPayload;
+import com.nlw.planner.trip.api.CreateTripRequest;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class Trip {
     @Column(name = "owner_email", nullable = false)
     private String ownerEmail;
 
-    public Trip(TripRequestPayload data) {
+    public Trip(CreateTripRequest data) {
         this.destination = data.destination();
         this.isConfirmed = false;
         this.ownerEmail = data.owner_email();

@@ -1,9 +1,9 @@
 package com.nlw.planner.activity.domain;
 
-import com.nlw.planner.activity.api.ActivityDTO;
 import com.nlw.planner.activity.api.ActivityResponse;
+import com.nlw.planner.activity.api.ActivitySummaryResponse;
 import com.nlw.planner.activity.infra.ActivityRepository;
-import com.nlw.planner.activity.api.ActivityRequestPayload;
+import com.nlw.planner.activity.api.CreateActivityRequest;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.junit.jupiter.api.Test;
@@ -32,9 +32,9 @@ class ActivityServiceTest {
     @Test
     void testRegisterActivity() {
         Trip trip = new Trip();
-        ActivityRequestPayload payload = new ActivityRequestPayload("Title", "2026-04-10T10:00:00");
+        CreateActivityRequest payload = new CreateActivityRequest("Title", "2026-04-10T10:00:00");
 
-        ActivityResponse response = activityService.registerActivity(payload, trip);
+        ActivitySummaryResponse response = activityService.registerActivity(payload, trip);
 
         assertNotNull(response);
         verify(repository, times(1)).save(any(Activity.class));
@@ -48,7 +48,7 @@ class ActivityServiceTest {
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(activity));
 
-        List<ActivityDTO> result = activityService.getAllActivitiesFromTrip(tripId);
+        List<ActivityResponse> result = activityService.getAllActivitiesFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());

@@ -1,9 +1,7 @@
 package com.nlw.planner.activity.api;
 
-import com.nlw.planner.activity.domain.Activity;
-
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ActivityResponse(UUID activityId) {
-
+public record ActivityResponse(UUID id, String title, LocalDateTime occursAt) {
 }

@@ -1,10 +1,8 @@
 package com.nlw.planner.trip.api;
 
-import com.nlw.planner.trip.domain.Trip;
-
 import java.util.List;
 
-public record TripRequestPayload(
+public record CreateTripRequest(
         String destination,
         String starts_at,
         String ends_at,

@@ -1,8 +1,8 @@
 package com.nlw.planner.participant.domain;
 
-import com.nlw.planner.participant.api.ParticipantCreateResponse;
+import com.nlw.planner.participant.api.ParticipantSummaryResponse;
 import com.nlw.planner.participant.infra.ParticipantRepository;
-import com.nlw.planner.participant.api.ParticipantDTO;
+import com.nlw.planner.participant.api.ParticipantResponse;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class ParticipantServiceTest {
         Trip trip = new Trip();
         String email = "test@test.com";
 
-        ParticipantCreateResponse response = participantService.registerParticipantToTrip(email, trip);
+        ParticipantSummaryResponse response = participantService.registerParticipantToTrip(email, trip);
 
         assertNotNull(response);
         verify(repository, times(1)).save(any(Participant.class));
@@ -54,7 +54,7 @@ class ParticipantServiceTest {
         UUID tripId = UUID.randomUUID();
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(new Participant("test@test.com", new Trip())));
 
-        List<ParticipantDTO> result = participantService.getAllParticipantsFromTrip(tripId);
+        List<ParticipantResponse> result = participantService.getAllParticipantsFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());

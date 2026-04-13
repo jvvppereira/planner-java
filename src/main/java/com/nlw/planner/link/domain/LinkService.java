@@ -1,8 +1,8 @@
 package com.nlw.planner.link.domain;
 
 import com.nlw.planner.link.infra.LinkRepository;
-import com.nlw.planner.link.api.LinkDTO;
-import com.nlw.planner.link.api.LinkRequestPayload;
+import com.nlw.planner.link.api.LinkResponse;
+import com.nlw.planner.link.api.CreateLinkRequest;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +17,16 @@ public class LinkService {
     @Autowired
     private LinkRepository repository;
 
-    public LinkDTO registerLink(LinkRequestPayload payload, Trip trip) {
+    public LinkResponse registerLink(CreateLinkRequest payload, Trip trip) {
         Link newLink = new Link(payload.title(), payload.url(), trip);
 
         this.repository.save(newLink);
 
-        return new LinkDTO(newLink.getId(), newLink.getTitle(), newLink.getUrl());
+        return new LinkResponse(newLink.getId(), newLink.getTitle(), newLink.getUrl());
     }
 
-    public List<LinkDTO> getAllLinksFromTrip(UUID tripId) {
+    public List<LinkResponse> getAllLinksFromTrip(UUID tripId) {
         return this.repository.findByTripId(tripId).stream().map(
-                link -> new LinkDTO(link.getId(), link.getTitle(), link.getUrl())).toList();
+                link -> new LinkResponse(link.getId(), link.getTitle(), link.getUrl())).toList();
     }
 }

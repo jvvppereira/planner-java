@@ -1,7 +1,7 @@
 package com.nlw.planner.trip.domain;
 
 import com.nlw.planner.trip.infra.TripRepository;
-import com.nlw.planner.trip.api.TripRequestPayload;
+import com.nlw.planner.trip.api.CreateTripRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class TripService {
     @Autowired
     private TripRepository repository;
 
-    public Trip createTrip(TripRequestPayload payload) {
+    public Trip createTrip(CreateTripRequest payload) {
         Trip newTrip = new Trip(payload);
         return this.repository.save(newTrip);
     }

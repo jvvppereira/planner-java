@@ -1,8 +1,8 @@
 package com.nlw.planner.link.domain;
 
 import com.nlw.planner.link.infra.LinkRepository;
-import com.nlw.planner.link.api.LinkDTO;
-import com.nlw.planner.link.api.LinkRequestPayload;
+import com.nlw.planner.link.api.LinkResponse;
+import com.nlw.planner.link.api.CreateLinkRequest;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.junit.jupiter.api.Test;
@@ -31,9 +31,9 @@ class LinkServiceTest {
     @Test
     void testRegisterLink() {
         Trip trip = new Trip();
-        LinkRequestPayload payload = new LinkRequestPayload("Title", "http://url.com");
+        CreateLinkRequest payload = new CreateLinkRequest("Title", "http://url.com");
 
-        LinkDTO response = linkService.registerLink(payload, trip);
+        LinkResponse response = linkService.registerLink(payload, trip);
 
         assertNotNull(response);
         assertEquals("Title", response.title());
@@ -49,7 +49,7 @@ class LinkServiceTest {
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(link));
 
-        List<LinkDTO> result = linkService.getAllLinksFromTrip(tripId);
+        List<LinkResponse> result = linkService.getAllLinksFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());

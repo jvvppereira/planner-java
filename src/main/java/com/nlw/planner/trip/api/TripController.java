@@ -1,18 +1,18 @@
 package com.nlw.planner.trip.api;
 
-import com.nlw.planner.participant.api.ParticipantCreateResponse;
-import com.nlw.planner.participant.api.ParticipantDTO;
-import com.nlw.planner.participant.api.ParticipantRequestPayload;
+import com.nlw.planner.participant.api.ParticipantSummaryResponse;
+import com.nlw.planner.participant.api.ParticipantResponse;
+import com.nlw.planner.participant.api.InviteParticipantRequest;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.trip.domain.Trip;
 
-import com.nlw.planner.activity.api.ActivityDTO;
-import com.nlw.planner.activity.api.ActivityRequestPayload;
 import com.nlw.planner.activity.api.ActivityResponse;
+import com.nlw.planner.activity.api.CreateActivityRequest;
+import com.nlw.planner.activity.api.ActivitySummaryResponse;
 import com.nlw.planner.activity.domain.ActivityService;
-import com.nlw.planner.link.api.LinkDTO;
-import com.nlw.planner.link.api.LinkRequestPayload;
+import com.nlw.planner.link.api.LinkResponse;
+import com.nlw.planner.link.api.CreateLinkRequest;
 import com.nlw.planner.link.domain.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +41,12 @@ public class TripController {
     private TripService tripService;
 
     @PostMapping
-    public ResponseEntity<TripCreateResponse> createTrip(@RequestBody TripRequestPayload payload) {
+    public ResponseEntity<TripSummaryResponse> createTrip(@RequestBody CreateTripRequest payload) {
         Trip newTrip = this.tripService.createTrip(payload);
 
         this.participantService.registerParticipantsToTrip(payload.emails_to_invite(), newTrip);
 
-        return ResponseEntity.ok(new TripCreateResponse(newTrip.getId()));
+        return ResponseEntity.ok(new TripSummaryResponse(newTrip.getId()));
     }
 
     @GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class TripController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Trip> updateDetails(@PathVariable UUID id, @RequestBody TripRequestPayload payload) {
+    public ResponseEntity<Trip> updateDetails(@PathVariable UUID id, @RequestBody CreateTripRequest payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
@@ -92,14 +92,14 @@ public class TripController {
     }
 
     @PostMapping("/{id}/invite")
-    public ResponseEntity<ParticipantCreateResponse> inviteParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload) {
+    public ResponseEntity<ParticipantSummaryResponse> inviteParticipant(@PathVariable UUID id, @RequestBody InviteParticipantRequest payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
             Trip rawTrip = trip.get();
             String email = payload.email();
 
-            ParticipantCreateResponse participantResponse = this.participantService.registerParticipantToTrip(email, rawTrip);
+            ParticipantSummaryResponse participantResponse = this.participantService.registerParticipantToTrip(email, rawTrip);
 
             if (rawTrip.getIsConfirmed()) {
                 this.participantService.triggerConfirmationEmailToParticipant(email);
@@ -112,21 +112,21 @@ public class TripController {
     }
 
     @GetMapping("/{id}/participants")
-    public ResponseEntity<List<ParticipantDTO>> getAllParticipants(@PathVariable UUID id) {
-        List<ParticipantDTO> participantList = this.participantService.getAllParticipantsFromTrip(id);
+    public ResponseEntity<List<ParticipantResponse>> getAllParticipants(@PathVariable UUID id) {
+        List<ParticipantResponse> participantList = this.participantService.getAllParticipantsFromTrip(id);
         return ResponseEntity.ok(participantList);
     }
 
     @PostMapping("/{id}/activities")
-    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
+    public ResponseEntity<ActivitySummaryResponse> registerActivity(@PathVariable UUID id, @RequestBody CreateActivityRequest payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
             Trip rawTrip = trip.get();
 
-            ActivityResponse activityResponse = this.activityService.registerActivity(payload, rawTrip);
+            ActivitySummaryResponse activitySummaryResponse = this.activityService.registerActivity(payload, rawTrip);
 
-            return ResponseEntity.ok(activityResponse);
+            return ResponseEntity.ok(activitySummaryResponse);
         }
 
         return ResponseEntity.notFound().build();
@@ -134,19 +134,19 @@ public class TripController {
 
 
     @GetMapping("/{id}/activities")
-    public ResponseEntity<List<ActivityDTO>> getAllActivities(@PathVariable UUID id) {
-        List<ActivityDTO> activitiesList = this.activityService.getAllActivitiesFromTrip(id);
+    public ResponseEntity<List<ActivityResponse>> getAllActivities(@PathVariable UUID id) {
+        List<ActivityResponse> activitiesList = this.activityService.getAllActivitiesFromTrip(id);
         return ResponseEntity.ok(activitiesList);
     }
 
     @PostMapping("/{id}/links")
-    public ResponseEntity<LinkDTO> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody CreateLinkRequest payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
             Trip rawTrip = trip.get();
 
-            LinkDTO activityResponse = this.linkService.registerLink(payload, rawTrip);
+            LinkResponse activityResponse = this.linkService.registerLink(payload, rawTrip);
 
             return ResponseEntity.ok(activityResponse);
         }
@@ -154,8 +154,8 @@ public class TripController {
     }
 
     @GetMapping("/{id}/links")
-    public ResponseEntity<List<LinkDTO>> getAllLinks(@PathVariable UUID id) {
-        List<LinkDTO> linksList = this.linkService.getAllLinksFromTrip(id);
+    public ResponseEntity<List<LinkResponse>> getAllLinks(@PathVariable UUID id) {
+        List<LinkResponse> linksList = this.linkService.getAllLinksFromTrip(id);
         return ResponseEntity.ok(linksList);
     }
 

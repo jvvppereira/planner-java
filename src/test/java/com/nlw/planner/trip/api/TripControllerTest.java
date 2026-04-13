@@ -40,7 +40,7 @@ class TripControllerTest {
 
     @Test
     void testCreateTrip() {
-        TripRequestPayload payload = new TripRequestPayload(
+        CreateTripRequest payload = new CreateTripRequest(
                 "Florianópolis",
                 "2026-04-10T10:00:00",
                 "2026-04-20T10:00:00",
@@ -53,9 +53,9 @@ class TripControllerTest {
         UUID id = UUID.randomUUID();
         trip.setId(id);
 
-        when(tripService.createTrip(any(TripRequestPayload.class))).thenReturn(trip);
+        when(tripService.createTrip(any(CreateTripRequest.class))).thenReturn(trip);
 
-        ResponseEntity<TripCreateResponse> response = tripController.createTrip(payload);
+        ResponseEntity<TripSummaryResponse> response = tripController.createTrip(payload);
 
         assertNotNull(response.getBody());
         assertEquals(id, response.getBody().id());
