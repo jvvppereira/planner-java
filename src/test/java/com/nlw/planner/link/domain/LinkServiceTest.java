@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,13 +51,13 @@ class LinkServiceTest {
         Link link = new Link("Title", "http://url.com", new Trip());
         link.setId(UUID.randomUUID());
 
-        when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(link));
+        when(repository.findByTripId(tripId)).thenReturn(List.of(link));
         when(linkMapper.toResponse(any(Link.class))).thenReturn(new LinkResponse(link.getId(), "Title", "http://url.com"));
 
         List<LinkResponse> result = linkService.getAllLinksFromTrip(tripId);
 
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
-        assertEquals("Title", result.get(0).title());
+        assertEquals("Title", result.getFirst().title());
     }
 }

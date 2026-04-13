@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +49,7 @@ class ActivityServiceTest {
         Activity activity = new Activity("Title", "2026-04-10T10:00:00", new Trip());
         activity.setId(UUID.randomUUID());
 
-        when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(activity));
+        when(repository.findByTripId(tripId)).thenReturn(List.of(activity));
         when(activityMapper.toResponse(any(Activity.class))).thenReturn(new ActivityResponse(activity.getId(), "Title", null));
 
         List<ActivityResponse> result = activityService.getAllActivitiesFromTrip(tripId);

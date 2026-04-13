@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ class ParticipantServiceTest {
     @Test
     void testRegisterParticipantsToTrip() {
         Trip trip = new Trip();
-        List<String> emails = Arrays.asList("test@test.com");
+        List<String> emails = List.of("test@test.com");
 
         participantService.registerParticipantsToTrip(emails, trip);
 
@@ -52,7 +51,7 @@ class ParticipantServiceTest {
     @Test
     void testGetAllParticipantsFromTrip() {
         UUID tripId = UUID.randomUUID();
-        when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(new Participant("test@test.com", new Trip())));
+        when(repository.findByTripId(tripId)).thenReturn(List.of(new Participant("test@test.com", new Trip())));
 
         List<ParticipantResponse> result = participantService.getAllParticipantsFromTrip(tripId);
 

@@ -7,8 +7,6 @@ import com.nlw.planner.trip.api.TripMapper;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.trip.domain.Trip;
 import com.nlw.planner.participant.domain.ParticipantService;
-import com.nlw.planner.activity.domain.ActivityService;
-import com.nlw.planner.link.domain.LinkService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,12 +35,6 @@ class TripControllerTest {
     private ParticipantService participantService;
 
     @Mock
-    private ActivityService activityService;
-
-    @Mock
-    private LinkService linkService;
-
-    @Mock
     private TripMapper tripMapper;
 
     @Test
@@ -51,7 +43,7 @@ class TripControllerTest {
                 "Florianópolis",
                 "2026-04-10T10:00:00",
                 "2026-04-20T10:00:00",
-                Arrays.asList("email@test.com"),
+                List.of("email@test.com"),
                 "owner@test.com",
                 "Owner Name"
         );
