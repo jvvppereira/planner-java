@@ -1,6 +1,6 @@
 # Planner Java Application ✈️🌐
 
-A professional trip planning system built with Java and Spring Boot, designed to help users organize their trips, activities, participants, and relevant links. This project was developed following modern software engineering practices, including domain separation (API, Domain, Infra) and automated testing.
+A trip planning system built with Java and Spring Boot, designed to help users organize their trips, activities, participants, and relevant links. This project was developed following modern software engineering practices, including domain separation (API, Domain, Infra) and automated testing.
 
 ## 🚀 Technologies & Libraries
 
@@ -75,4 +75,4 @@ To run the automated tests:
 ```
 
 ---
-*Developed with ❤️ by the Antigravity AI Assistant.*
+*Developed with 💜 during Rocketseat's NLW with the support of Antigravity.*
