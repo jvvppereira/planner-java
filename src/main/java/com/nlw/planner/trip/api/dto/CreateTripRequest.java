@@ -1,4 +1,4 @@
-package com.nlw.planner.trip.api;
+package com.nlw.planner.trip.api.dto;
 
 import java.util.List;
 

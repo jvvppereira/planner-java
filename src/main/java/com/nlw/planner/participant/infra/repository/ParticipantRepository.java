@@ -1,4 +1,4 @@
-package com.nlw.planner.participant.infra;
+package com.nlw.planner.participant.infra.repository;
 
 import com.nlw.planner.participant.domain.Participant;
 

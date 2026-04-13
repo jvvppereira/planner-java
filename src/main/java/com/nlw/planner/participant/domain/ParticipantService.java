@@ -1,8 +1,8 @@
 package com.nlw.planner.participant.domain;
 
-import com.nlw.planner.participant.api.ParticipantSummaryResponse;
-import com.nlw.planner.participant.infra.ParticipantRepository;
-import com.nlw.planner.participant.api.ParticipantResponse;
+import com.nlw.planner.participant.api.dto.ParticipantSummaryResponse;
+import com.nlw.planner.participant.infra.repository.ParticipantRepository;
+import com.nlw.planner.participant.api.dto.ParticipantResponse;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.springframework.beans.factory.annotation.Autowired;

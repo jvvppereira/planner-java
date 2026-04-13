@@ -1,4 +1,4 @@
-package com.nlw.planner.link.infra;
+package com.nlw.planner.link.infra.repository;
 
 import com.nlw.planner.link.domain.Link;
 

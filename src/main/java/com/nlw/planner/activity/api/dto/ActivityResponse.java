@@ -1,4 +1,4 @@
-package com.nlw.planner.activity.api;
+package com.nlw.planner.activity.api.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,9 +1,9 @@
 package com.nlw.planner.activity.domain;
 
-import com.nlw.planner.activity.api.ActivityResponse;
-import com.nlw.planner.activity.api.ActivitySummaryResponse;
-import com.nlw.planner.activity.infra.ActivityRepository;
-import com.nlw.planner.activity.api.CreateActivityRequest;
+import com.nlw.planner.activity.api.dto.ActivityResponse;
+import com.nlw.planner.activity.api.dto.ActivitySummaryResponse;
+import com.nlw.planner.activity.infra.repository.ActivityRepository;
+import com.nlw.planner.activity.api.dto.CreateActivityRequest;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.springframework.beans.factory.annotation.Autowired;

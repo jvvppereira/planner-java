@@ -1,4 +1,4 @@
-package com.nlw.planner.link.api;
+package com.nlw.planner.link.api.dto;
 
 import java.util.UUID;
 

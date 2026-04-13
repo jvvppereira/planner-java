@@ -1,4 +1,4 @@
-package com.nlw.planner.activity.infra;
+package com.nlw.planner.activity.infra.repository;
 
 import com.nlw.planner.activity.domain.Activity;
 

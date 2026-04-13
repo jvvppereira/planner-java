@@ -1,5 +1,7 @@
-package com.nlw.planner.trip.api;
+package com.nlw.planner.trip.api.controller;
 
+import com.nlw.planner.trip.api.dto.CreateTripRequest;
+import com.nlw.planner.trip.api.dto.TripSummaryResponse;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.trip.domain.Trip;
 import com.nlw.planner.participant.domain.ParticipantService;

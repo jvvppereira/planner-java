@@ -1,18 +1,20 @@
-package com.nlw.planner.trip.api;
+package com.nlw.planner.trip.api.controller;
 
-import com.nlw.planner.participant.api.ParticipantSummaryResponse;
-import com.nlw.planner.participant.api.ParticipantResponse;
-import com.nlw.planner.participant.api.InviteParticipantRequest;
+import com.nlw.planner.participant.api.dto.ParticipantSummaryResponse;
+import com.nlw.planner.participant.api.dto.ParticipantResponse;
+import com.nlw.planner.participant.api.dto.InviteParticipantRequest;
+import com.nlw.planner.trip.api.dto.CreateTripRequest;
+import com.nlw.planner.trip.api.dto.TripSummaryResponse;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.trip.domain.Trip;
 
-import com.nlw.planner.activity.api.ActivityResponse;
-import com.nlw.planner.activity.api.CreateActivityRequest;
-import com.nlw.planner.activity.api.ActivitySummaryResponse;
+import com.nlw.planner.activity.api.dto.ActivityResponse;
+import com.nlw.planner.activity.api.dto.CreateActivityRequest;
+import com.nlw.planner.activity.api.dto.ActivitySummaryResponse;
 import com.nlw.planner.activity.domain.ActivityService;
-import com.nlw.planner.link.api.LinkResponse;
-import com.nlw.planner.link.api.CreateLinkRequest;
+import com.nlw.planner.link.api.dto.LinkResponse;
+import com.nlw.planner.link.api.dto.CreateLinkRequest;
 import com.nlw.planner.link.domain.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

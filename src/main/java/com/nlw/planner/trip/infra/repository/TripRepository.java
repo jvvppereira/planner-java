@@ -1,4 +1,4 @@
-package com.nlw.planner.trip.infra;
+package com.nlw.planner.trip.infra.repository;
 
 import com.nlw.planner.trip.domain.Trip;
 

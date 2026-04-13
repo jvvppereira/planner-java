@@ -1,7 +1,7 @@
 package com.nlw.planner.trip.domain;
 
-import com.nlw.planner.trip.infra.TripRepository;
-import com.nlw.planner.trip.api.CreateTripRequest;
+import com.nlw.planner.trip.infra.repository.TripRepository;
+import com.nlw.planner.trip.api.dto.CreateTripRequest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

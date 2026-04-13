@@ -1,8 +1,8 @@
 package com.nlw.planner.link.domain;
 
-import com.nlw.planner.link.infra.LinkRepository;
-import com.nlw.planner.link.api.LinkResponse;
-import com.nlw.planner.link.api.CreateLinkRequest;
+import com.nlw.planner.link.infra.repository.LinkRepository;
+import com.nlw.planner.link.api.dto.LinkResponse;
+import com.nlw.planner.link.api.dto.CreateLinkRequest;
 
 import com.nlw.planner.trip.domain.Trip;
 import org.junit.jupiter.api.Test;

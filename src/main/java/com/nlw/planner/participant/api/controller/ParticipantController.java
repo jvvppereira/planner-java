@@ -1,6 +1,7 @@
-package com.nlw.planner.participant.api;
+package com.nlw.planner.participant.api.controller;
 
-import com.nlw.planner.participant.infra.ParticipantRepository;
+import com.nlw.planner.participant.api.dto.ConfirmParticipantRequest;
+import com.nlw.planner.participant.infra.repository.ParticipantRepository;
 import com.nlw.planner.participant.domain.Participant;
 
 import org.springframework.beans.factory.annotation.Autowired;

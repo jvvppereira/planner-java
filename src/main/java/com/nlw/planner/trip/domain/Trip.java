@@ -1,6 +1,6 @@
 package com.nlw.planner.trip.domain;
 
-import com.nlw.planner.trip.api.CreateTripRequest;
+import com.nlw.planner.trip.api.dto.CreateTripRequest;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
