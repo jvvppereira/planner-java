@@ -2,6 +2,7 @@ package com.nlw.planner.link.domain;
 
 import com.nlw.planner.link.infra.repository.LinkRepository;
 import com.nlw.planner.link.api.dto.LinkResponse;
+import com.nlw.planner.link.api.LinkMapper;
 import com.nlw.planner.link.api.dto.CreateLinkRequest;
 
 import com.nlw.planner.trip.domain.Trip;
@@ -25,6 +26,9 @@ class LinkServiceTest {
     @Mock
     private LinkRepository repository;
 
+    @Mock
+    private LinkMapper linkMapper;
+
     @InjectMocks
     private LinkService linkService;
 
@@ -33,6 +37,7 @@ class LinkServiceTest {
         Trip trip = new Trip();
         CreateLinkRequest payload = new CreateLinkRequest("Title", "http://url.com");
 
+        when(linkMapper.toResponse(any(Link.class))).thenReturn(new LinkResponse(UUID.randomUUID(), "Title", "http://url.com"));
         LinkResponse response = linkService.registerLink(payload, trip);
 
         assertNotNull(response);
@@ -48,6 +53,7 @@ class LinkServiceTest {
         link.setId(UUID.randomUUID());
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(link));
+        when(linkMapper.toResponse(any(Link.class))).thenReturn(new LinkResponse(link.getId(), "Title", "http://url.com"));
 
         List<LinkResponse> result = linkService.getAllLinksFromTrip(tripId);
 

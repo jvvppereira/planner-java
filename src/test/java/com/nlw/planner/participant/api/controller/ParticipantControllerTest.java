@@ -1,6 +1,8 @@
 package com.nlw.planner.participant.api.controller;
 
 import com.nlw.planner.participant.api.dto.ConfirmParticipantRequest;
+import com.nlw.planner.participant.api.dto.ParticipantResponse;
+import com.nlw.planner.participant.api.ParticipantMapper;
 import com.nlw.planner.participant.infra.repository.ParticipantRepository;
 import com.nlw.planner.participant.domain.Participant;
 
@@ -27,6 +29,9 @@ class ParticipantControllerTest {
     @Mock
     private ParticipantRepository repository;
 
+    @Mock
+    private ParticipantMapper participantMapper;
+
     @Test
     void testConfirmParticipant() {
         UUID id = UUID.randomUUID();
@@ -38,12 +43,13 @@ class ParticipantControllerTest {
 
         when(repository.findById(id)).thenReturn(Optional.of(participant));
         when(repository.save(any(Participant.class))).thenReturn(participant);
+        when(participantMapper.toResponse(any(Participant.class))).thenReturn(new ParticipantResponse(id, "New Name", "test@test.com", true));
 
-        ResponseEntity<Participant> response = participantController.confirmParticipant(id, payload);
+        ResponseEntity<ParticipantResponse> response = participantController.confirmParticipant(id, payload);
 
         assertTrue(response.getStatusCode().is2xxSuccessful());
-        assertTrue(response.getBody().getIsConfirmed());
-        assertEquals("New Name", response.getBody().getName());
+        assertTrue(response.getBody().isConfirmed());
+        assertEquals("New Name", response.getBody().name());
     }
 
     @Test
@@ -53,7 +59,7 @@ class ParticipantControllerTest {
 
         when(repository.findById(id)).thenReturn(Optional.empty());
 
-        ResponseEntity<Participant> response = participantController.confirmParticipant(id, payload);
+        ResponseEntity<ParticipantResponse> response = participantController.confirmParticipant(id, payload);
 
         assertTrue(response.getStatusCode().is4xxClientError());
     }

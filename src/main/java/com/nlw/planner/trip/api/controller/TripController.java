@@ -4,7 +4,9 @@ import com.nlw.planner.participant.api.dto.ParticipantSummaryResponse;
 import com.nlw.planner.participant.api.dto.ParticipantResponse;
 import com.nlw.planner.participant.api.dto.InviteParticipantRequest;
 import com.nlw.planner.trip.api.dto.CreateTripRequest;
+import com.nlw.planner.trip.api.dto.TripResponse;
 import com.nlw.planner.trip.api.dto.TripSummaryResponse;
+import com.nlw.planner.trip.api.TripMapper;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.participant.domain.ParticipantService;
 import com.nlw.planner.trip.domain.Trip;
@@ -42,6 +44,9 @@ public class TripController {
     @Autowired
     private TripService tripService;
 
+    @Autowired
+    private TripMapper tripMapper;
+
     @PostMapping
     public ResponseEntity<TripSummaryResponse> createTrip(@RequestBody CreateTripRequest payload) {
         Trip newTrip = this.tripService.createTrip(payload);
@@ -52,14 +57,15 @@ public class TripController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripDetails(@PathVariable UUID id) {
+    public ResponseEntity<TripResponse> getTripDetails(@PathVariable UUID id) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
-        return trip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return trip.map(t -> ResponseEntity.ok(this.tripMapper.toResponse(t)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Trip> updateDetails(@PathVariable UUID id, @RequestBody CreateTripRequest payload) {
+    public ResponseEntity<TripResponse> updateDetails(@PathVariable UUID id, @RequestBody CreateTripRequest payload) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
@@ -70,14 +76,14 @@ public class TripController {
 
             this.tripService.saveTrip(rawTrip);
 
-            return ResponseEntity.ok(rawTrip);
+            return ResponseEntity.ok(this.tripMapper.toResponse(rawTrip));
         }
 
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/confirm")
-    public ResponseEntity<Trip> confirmTrip(@PathVariable UUID id) {
+    public ResponseEntity<TripResponse> confirmTrip(@PathVariable UUID id) {
         Optional<Trip> trip = this.tripService.getTripDetails(id);
 
         if (trip.isPresent()) {
@@ -87,7 +93,7 @@ public class TripController {
             this.tripService.saveTrip(rawTrip);
             this.participantService.triggerConfirmationEmailToParticipants(id);
 
-            return ResponseEntity.ok(rawTrip);
+            return ResponseEntity.ok(this.tripMapper.toResponse(rawTrip));
         }
 
         return ResponseEntity.notFound().build();

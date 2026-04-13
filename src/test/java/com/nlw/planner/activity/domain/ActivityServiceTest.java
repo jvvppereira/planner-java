@@ -2,6 +2,7 @@ package com.nlw.planner.activity.domain;
 
 import com.nlw.planner.activity.api.dto.ActivityResponse;
 import com.nlw.planner.activity.api.dto.ActivitySummaryResponse;
+import com.nlw.planner.activity.api.ActivityMapper;
 import com.nlw.planner.activity.infra.repository.ActivityRepository;
 import com.nlw.planner.activity.api.dto.CreateActivityRequest;
 
@@ -26,6 +27,9 @@ class ActivityServiceTest {
     @Mock
     private ActivityRepository repository;
 
+    @Mock
+    private ActivityMapper activityMapper;
+
     @InjectMocks
     private ActivityService activityService;
 
@@ -47,6 +51,7 @@ class ActivityServiceTest {
         activity.setId(UUID.randomUUID());
 
         when(repository.findByTripId(tripId)).thenReturn(Arrays.asList(activity));
+        when(activityMapper.toResponse(any(Activity.class))).thenReturn(new ActivityResponse(activity.getId(), "Title", null));
 
         List<ActivityResponse> result = activityService.getAllActivitiesFromTrip(tripId);
 

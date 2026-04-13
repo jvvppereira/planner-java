@@ -2,6 +2,7 @@ package com.nlw.planner.activity.domain;
 
 import com.nlw.planner.activity.api.dto.ActivityResponse;
 import com.nlw.planner.activity.api.dto.ActivitySummaryResponse;
+import com.nlw.planner.activity.api.ActivityMapper;
 import com.nlw.planner.activity.infra.repository.ActivityRepository;
 import com.nlw.planner.activity.api.dto.CreateActivityRequest;
 
@@ -18,6 +19,9 @@ public class ActivityService {
     @Autowired
     private ActivityRepository repository;
 
+    @Autowired
+    private ActivityMapper activityMapper;
+
     public ActivitySummaryResponse registerActivity(CreateActivityRequest payload, Trip trip) {
         Activity newActivity = new Activity(payload.title(), payload.occurs_at(), trip);
 
@@ -27,6 +31,6 @@ public class ActivityService {
     }
 
     public List<ActivityResponse> getAllActivitiesFromTrip(UUID tripId) {
-        return this.repository.findByTripId(tripId).stream().map(activity -> new ActivityResponse(activity.getId(), activity.getTitle(), activity.getOccursAt())).toList();
+        return this.repository.findByTripId(tripId).stream().map(activityMapper::toResponse).toList();
     }
 }

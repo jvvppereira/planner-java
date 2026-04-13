@@ -1,7 +1,9 @@
 package com.nlw.planner.trip.api.controller;
 
 import com.nlw.planner.trip.api.dto.CreateTripRequest;
+import com.nlw.planner.trip.api.dto.TripResponse;
 import com.nlw.planner.trip.api.dto.TripSummaryResponse;
+import com.nlw.planner.trip.api.TripMapper;
 import com.nlw.planner.trip.domain.TripService;
 import com.nlw.planner.trip.domain.Trip;
 import com.nlw.planner.participant.domain.ParticipantService;
@@ -40,6 +42,9 @@ class TripControllerTest {
     @Mock
     private LinkService linkService;
 
+    @Mock
+    private TripMapper tripMapper;
+
     @Test
     void testCreateTrip() {
         CreateTripRequest payload = new CreateTripRequest(
@@ -71,11 +76,12 @@ class TripControllerTest {
         trip.setDestination("Florianópolis");
 
         when(tripService.getTripDetails(id)).thenReturn(Optional.of(trip));
+        when(tripMapper.toResponse(any(Trip.class))).thenReturn(new TripResponse(id, "Florianópolis", null, null, false, "Owner", "email@test.com"));
 
-        ResponseEntity<Trip> response = tripController.getTripDetails(id);
+        ResponseEntity<TripResponse> response = tripController.getTripDetails(id);
 
         assertTrue(response.getStatusCode().is2xxSuccessful());
-        assertEquals("Florianópolis", response.getBody().getDestination());
+        assertEquals("Florianópolis", response.getBody().destination());
     }
 
     @Test
@@ -83,7 +89,7 @@ class TripControllerTest {
         UUID id = UUID.randomUUID();
         when(tripService.getTripDetails(id)).thenReturn(Optional.empty());
 
-        ResponseEntity<Trip> response = tripController.getTripDetails(id);
+        ResponseEntity<TripResponse> response = tripController.getTripDetails(id);
 
         assertTrue(response.getStatusCode().is4xxClientError());
     }

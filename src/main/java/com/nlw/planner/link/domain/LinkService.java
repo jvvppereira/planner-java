@@ -2,6 +2,7 @@ package com.nlw.planner.link.domain;
 
 import com.nlw.planner.link.infra.repository.LinkRepository;
 import com.nlw.planner.link.api.dto.LinkResponse;
+import com.nlw.planner.link.api.LinkMapper;
 import com.nlw.planner.link.api.dto.CreateLinkRequest;
 
 import com.nlw.planner.trip.domain.Trip;
@@ -17,16 +18,18 @@ public class LinkService {
     @Autowired
     private LinkRepository repository;
 
+    @Autowired
+    private LinkMapper linkMapper;
+
     public LinkResponse registerLink(CreateLinkRequest payload, Trip trip) {
         Link newLink = new Link(payload.title(), payload.url(), trip);
 
         this.repository.save(newLink);
 
-        return new LinkResponse(newLink.getId(), newLink.getTitle(), newLink.getUrl());
+        return this.linkMapper.toResponse(newLink);
     }
 
     public List<LinkResponse> getAllLinksFromTrip(UUID tripId) {
-        return this.repository.findByTripId(tripId).stream().map(
-                link -> new LinkResponse(link.getId(), link.getTitle(), link.getUrl())).toList();
+        return this.repository.findByTripId(tripId).stream().map(this.linkMapper::toResponse).toList();
     }
 }

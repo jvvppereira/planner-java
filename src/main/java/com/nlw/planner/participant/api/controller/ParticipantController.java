@@ -1,6 +1,8 @@
 package com.nlw.planner.participant.api.controller;
 
 import com.nlw.planner.participant.api.dto.ConfirmParticipantRequest;
+import com.nlw.planner.participant.api.dto.ParticipantResponse;
+import com.nlw.planner.participant.api.ParticipantMapper;
 import com.nlw.planner.participant.infra.repository.ParticipantRepository;
 import com.nlw.planner.participant.domain.Participant;
 
@@ -18,8 +20,11 @@ public class ParticipantController {
     @Autowired
     private ParticipantRepository repository;
 
+    @Autowired
+    private ParticipantMapper participantMapper;
+
     @PostMapping("/{id}/confirm")
-    public ResponseEntity<Participant> confirmParticipant(@PathVariable UUID id, @RequestBody ConfirmParticipantRequest payload) {
+    public ResponseEntity<ParticipantResponse> confirmParticipant(@PathVariable UUID id, @RequestBody ConfirmParticipantRequest payload) {
         Optional<Participant> participant = this.repository.findById(id);
 
         if (participant.isPresent()) {
@@ -29,7 +34,7 @@ public class ParticipantController {
 
             this.repository.save(rawParticipant);
 
-            return ResponseEntity.ok(rawParticipant);
+            return ResponseEntity.ok(this.participantMapper.toResponse(rawParticipant));
         }
 
         return ResponseEntity.notFound().build();
