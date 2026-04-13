@@ -7,14 +7,15 @@ A trip planning system built with Java and Spring Boot, designed to help users o
 This project leverages a modern Java ecosystem:
 
 *   **Java 21**: Utilizing the latest LTS features.
-*   **Spring Boot 3.4.1**: Core framework for web and dependency injection.
+*   **Spring Boot 4.0.5**: Core framework for web and dependency injection.
 *   **Spring Data JPA**: For seamless database interaction.
 *   **Hibernate**: JPA implementation.
 *   **Flyway**: Database migration management.
+*   **MapStruct**: For efficient, type-safe mapping between Entities and DTOs.
 *   **H2 Database**: Lightweight in-memory database for development and testing.
 *   **Project Lombok**: Reducing boilerplate code with annotations.
 *   **Springdoc OpenAPI (Swagger)**: Automatic API documentation and interactive UI.
-*   **JUnit 5 & Mockito**: For robust automated unit testing.
+*   **JUnit 5 & Mockito**: For robust automated unit testing with Java Agent support.
 
 ## 🏗️ Project Architecture
 
@@ -23,7 +24,7 @@ The project follows a clean domain-oriented structure:
 ```text
 com.nlw.planner
 ├── activity
-│   ├── api (Controllers/DTOs)
+│   ├── api (Controllers/DTOs/Mappers)
 │   ├── domain (Entity/Service)
 │   └── infra (Repository)
 ├── link
